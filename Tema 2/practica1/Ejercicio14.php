@@ -1,6 +1,8 @@
 
 <?php
-    echo ("<h1>Ejercicio 14</h1>");
+    include_once("cabecera.php");
+    echo ("<h1 style='text-shadow: 2px 2px #ff0000; color:black '>Ejercicio 14</h1>");
+
     
     $alumnos = array (
         array("Nombre" => "Juan", "Materia" => "Mates", "Nota" => "5"),
@@ -19,13 +21,49 @@
         $nota = 0;
         $cont = 0;
         foreach($alumnos as $alumno){
-            foreach($alumno as $nota){
-                echo $nota."<br/>";
-                $cont ++;
+            $nota += $alumno["Nota"];
+            $cont ++;
+        }
+        echo "Nota media ".$nota/$cont."<br/>";
+    }
+
+    function alumSus($alumnos){
+        echo "Los alumnos suspensos son ";
+        foreach($alumnos as $alumno){
+            if($alumno["Nota"] < 5){
+                echo $alumno["Nombre"].", ";
             }
         }
     }
+
+    function ordenNotas($alumnos){
+        echo "<br/>Notas ordenadas ";
+        $ordenado = array ();
+        foreach($alumnos as $alumno){
+            array_push($ordenado, $alumno["Nota"]);
+        }
+        rsort($ordenado);
+        foreach($ordenado as $num){
+            echo $num.", ";
+        }
+    }
+
+    function ordenNombre($alumnos){
+        echo "<br/>Nombre ordenadas ";
+        $ordenado = array ();
+        foreach($alumnos as $alumno){
+            array_push($ordenado, $alumno);
+            echo $alumnos;
+        }
+        sort($ordenado);
+
+    }
+
     media($alumnos);
+    alumSus($alumnos);
+    ordenNotas($alumnos);
+    ordenNombre($alumnos);
     
+    include_once("pie.php")
 
 ?>

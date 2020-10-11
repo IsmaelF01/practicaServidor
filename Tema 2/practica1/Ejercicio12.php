@@ -1,6 +1,7 @@
 
 <?php
-    echo ("<h1>Ejercicio 12</h1>");
+    include_once("cabecera.php");
+    echo ("<h1 style='text-shadow: 2px 2px #ff0000; color:black '>Ejercicio 12</h1>");
     
 
     //Array con 20 palabras del español al ingles
@@ -33,4 +34,5 @@
         echo ("$español"." => "."$traduccion <br/>");
     }
 
+    include_once("pie.php");
 ?>

@@ -1,6 +1,7 @@
 
 <?php
-    echo ("<h1>Ejercicio 9</h1>");
+    include_once("cabecera.php");
+    echo ("<h1 style='text-shadow: 2px 2px #ff0000; color:black '>Ejercicio 9</h1>");
 
     //Array con varios colores
     $colores = array("black", "gray", "red", "blue", "yellow", "green", "orenage", "brown", "pink", "violet", "purple", "golden", "silver");
@@ -13,6 +14,5 @@
     }
 
 
-
-
+    include_once("pie.php");
 ?>

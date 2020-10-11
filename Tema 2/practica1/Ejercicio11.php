@@ -1,6 +1,7 @@
 
 <?php
-    echo ("<h1>Ejercicio 11</h1>");
+    include_once("cabecera.php");
+    echo ("<h1 style='text-shadow: 2px 2px #ff0000; color:black '>Ejercicio 11</h1>");
     
 
     //Array en dos dimensiones de 7x7 con numeros random del 0 al 9
@@ -31,6 +32,5 @@
     echo ("<br/>La suma de las columnas es: ".sqrt($sumC));
 
     
-
-
+    include_once("pie.php");
 ?>

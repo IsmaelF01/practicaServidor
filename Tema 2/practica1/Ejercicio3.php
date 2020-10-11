@@ -1,5 +1,6 @@
 <?php
-    echo ("<h1>Ejercicio3</h1>");
+    include_once("cabecera.php");
+    echo ("<h1 style='text-shadow: 2px 2px #ff0000; color:black '>Ejercicio 3</h1>");
     //La variable radio tiene el valor radio que es un numero random
     $radio = rand();
 
@@ -8,4 +9,5 @@
     echo ("Radio del circulo es: ".$radio);
     echo ("<br/>El volumen del circulo es: ".$volumen);
 
+    include_once("pie.php");
 ?>

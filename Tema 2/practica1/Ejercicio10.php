@@ -1,6 +1,7 @@
 
 <?php
-    echo ("<h1>Ejercicio 10</h1>");
+    include_once("cabecera.php");
+    echo ("<h1 style='text-shadow: 2px 2px #ff0000; color:black '>Ejercicio 10</h1>");
     
     $nums = array(rand(0,9), rand(0,9), rand(0,9), rand(0,9), rand(0,9), rand(0,9), rand(0,9), rand(0,9), rand(0,9), rand(0,9));
     $cont = 1;
@@ -19,6 +20,5 @@
     echo ("<br/>Los impares son: ".$impares);
 
     
-
-
+    include_once("pie.php");
 ?>

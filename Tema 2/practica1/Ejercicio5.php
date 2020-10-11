@@ -1,5 +1,7 @@
 <?php
-    echo ("<h1>Ejercicio5</h1>");
+    include_once("cabecera.php");
+    echo ("<h1 style='text-shadow: 2px 2px #ff0000; color:black '>Ejercicio 5</h1>");
+
     //Random de un rango de 0 a 99
     $random = rand(0 , 99);
     $decenas = bcdiv(($random/10), '1', 0);
@@ -78,4 +80,6 @@
         break;        
     }
 
+
+    include_once("pie.php");
 ?>

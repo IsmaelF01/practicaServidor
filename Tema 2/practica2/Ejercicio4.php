@@ -1,6 +1,8 @@
 
 <?php
-    echo ("<h1>Ejercicio 4</h1>");
+    include_once("cabecera.php");
+    echo ("<h1 style='text-shadow: 2px 2px #ff0000; color:black '>Ejercicio 4</h1>");
+
     //50 palabras en ingles
    $word_list_en = array("Soldier", "Mouse", "English", "Spanish", "Football", "Chrismas", "New year", "Word", "Bird", "Penguin",
     "Car", "Varano", "List", "Door", "Picture", "Circle", "Sugar", "Flower", "Box", "Boss",
@@ -33,4 +35,6 @@
     en_es($word_list_en, $word_list_es);
     echo "<br/>Traduccion de español a ingles<br/>";
     es_en($word_list_en, $word_list_es);
+
+    include_once("pie.php");
 ?>

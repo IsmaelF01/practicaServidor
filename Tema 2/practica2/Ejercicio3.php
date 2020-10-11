@@ -1,6 +1,7 @@
 
 <?php
-    echo ("<h1>Ejercicio 3</h1>");
+    include_once("cabecera.php");
+    echo ("<h1 style='text-shadow: 2px 2px #ff0000; color:black '>Ejercicio 3</h1>");
     
    $direccion_ip = "192.168.11.200";
     echo $direccion_ip."<br/>";
@@ -10,4 +11,6 @@
    foreach($array_ip as $ip){
        echo $ip.":";
    }
+
+   include_once("pie.php");
 ?>
