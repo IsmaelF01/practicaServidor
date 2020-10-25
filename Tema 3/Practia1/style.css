@@ -1,0 +1,13 @@
+/*Este es el css de las practicas de php del tema3 practica1*/
+
+body {
+    background-color: #FCE95F;
+    margin-top: 2%;
+}
+
+.contenedor {
+    background-color: white;
+    width: 60%;
+    margin: 0 auto;
+    padding: 0 2% 20px 2%;
+}
