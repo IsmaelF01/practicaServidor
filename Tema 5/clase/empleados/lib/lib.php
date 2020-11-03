@@ -14,9 +14,11 @@
 
     //Conexión a BD
     function conectar($basededatos) {
+        //CONECTAR EN LOCAL
+/*
         $MySQL_host = "localhost";
-        $MySQL_user = "root";
-        $MySQL_password = "";
+        $MySQL_user = "admin";
+        $MySQL_password = "admin";
         try {
 		    $dsn = "mysql:host=$MySQL_host;dbname=$basededatos";
             $conexion = new PDO($dsn, $MySQL_user,  $MySQL_password);
@@ -24,11 +26,73 @@
             return $conexion;
 		} catch (PDOException $e){
 		    echo $e->getMessage();
-		}   
+        }
+ */      
+        //HEROKU CLEARDB
+  /*      
+        $MySQL_host = "eu-cdbr-west-03.cleardb.net";
+        $MySQL_user = "b769522ed9fce5";
+        $MySQL_password = "7d9d2daf";
+        try {
+		    $dsn = "mysql:host=$MySQL_host;dbname=heroku_c83ad5338f4fd88";
+            $conexion = new PDO($dsn, $MySQL_user,  $MySQL_password);
+            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $conexion;
+		} catch (PDOException $e){
+		    echo $e->getMessage();
+		}
+    }
+*/
+
+        //HEROKU POSTGRES      
+        try {
+            $db = parse_url(getenv("DATABASE_URL"));
+
+            $pdo = new PDO("pgsql:" . sprintf(
+                "host=%s;port=%s;user=%s;password=%s;dbname=%s",
+                $db["host"],
+                $db["port"],
+                $db["user"],
+                $db["pass"],
+                ltrim($db["path"], "/")
+            ));
+            return $pdo;
+        } catch (PDOException $e){
+		    echo $e->getMessage();
+        }
+
+    }
+
+
+    /*
+     *  FUNCIONES PARA EMPLEADOS
+     *  ------------------------------------------------------------------
+     * */
+
+    //Obtener el número de páginas de empleados
+    define("RESPP",3);
+    function numPaginas($filtro) {
+        $consulta = "SELECT * FROM empleados";
+        if (strlen($filtro) > 0) {                
+            $consulta .= " WHERE dni = :filtro ";
+            $consulta .= " OR apellidos LIKE CONCAT('%', :filtro, '%')";
+            $consulta .= " OR nombre LIKE CONCAT('%', :filtro, '%')";
+        }
+        $conexion = conectar("2daw");
+        $stmt = $conexion->prepare($consulta);
+        if (strlen($filtro) > 0)
+            $stmt->bindParam(":filtro",$filtro);
+        $stmt->execute();
+        $count = $stmt->rowCount();
+        $conexion = null;
+
+        return ceil($count / RESPP);
     }
 
     //Hacer consulta
-    function hacerSelect($filtro) {
+    function hacerSelect($filtro,$pagina) {
+        //Resultados por página a mostrar
+
         try {
             //Establecer conexión
             $conexion = conectar("2daw");
@@ -36,17 +100,23 @@
             $conexion->query("SET NAMES utf8");            
             //Consulta de todos los empleados
             $consulta = "SELECT * FROM empleados ";
-            if (!empty($filtro)) {                
+            if (strlen($filtro) > 0) {                
                 $consulta .= " WHERE dni = :filtro ";
                 $consulta .= " OR apellidos LIKE CONCAT('%', :filtro, '%')";
                 $consulta .= " OR nombre LIKE CONCAT('%', :filtro, '%')";
             }
             //Añadimos la búsqueda a la consulta
             $consulta .= " ORDER BY apellidos";
+            //Paginador
+            if ($pagina > 0) {
+                $start = (($pagina-1) * RESPP);
+                $consulta .= " LIMIT ".$start." , ".RESPP;
+            }
 
             //Preparamos la consulta
             $stmt = $conexion->prepare($consulta);
-            $stmt->bindParam(":filtro",$filtro);
+            if (strlen($filtro) > 0)
+                $stmt->bindParam(":filtro",$filtro);
             //Ejecutamos la consulta
             $stmt->execute();
             //Devolvemos los resultados
@@ -184,6 +254,11 @@
         }
     }  
     
+
+    /*
+     *  FUNCIONES PARA PROYECTOS
+     *  ------------------------------------------------------------------
+     * */
 
 
 ?>

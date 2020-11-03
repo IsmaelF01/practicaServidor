@@ -5,6 +5,18 @@
 
 <body>
 
+	<div class="container mt-5">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-4">
+						<h6><a href='index.php' class='mr-2'>EMPLEADOS</a><a href='proyectos.php'>PROYECTOS</a></h6>
+					</div>
+                </div>
+            </div>
+        </div>
+	</div>
+
     <div class="container mt-5">
         <div class="table-wrapper">
             <div class="table-title">
@@ -18,7 +30,7 @@
 					</div>
 				</div>
 				<div class="row float-right">
-					<form action='index.php' method='post'>
+					<form action='index.php' method='get'>
 						<div class='row form-group mb-2 pr-2'>
 							<label class="col-sm-2"> Filtro: </label>
 							<input class="col-sm-6"type="text" name="filtro" class="form-control">
@@ -48,12 +60,19 @@
 <?php
 		//Comprobar si hemos pulsado el filtro de búsqueda
 		$filtro = "";
-		if (isset($_POST['filtro'])) {
-			$filtro = filtrado($_POST['filtro']);
+		if (isset($_GET['filtro'])) {
+			$filtro = filtrado($_GET['filtro']);
 		} 
 
+		//Paginador
+		if (isset($_GET['pagina'])) {
+			$pagina = $_GET['pagina'];
+		} else {
+			$pagina = 1;
+		}
+
 		//Mostramos los empleados desde la BD
-		$empleados = hacerSelect($filtro);
+		$empleados = hacerSelect($filtro,$pagina);
 
 		//Recorremos los resultados
 		foreach($empleados as $empleado){
@@ -83,7 +102,21 @@
 		}
 
 ?>
-                </tbody>
+				</tbody>
+				<tfooter>
+					<tr>
+						<td colspan='10'>
+<?php
+		//Calculamos el número total de páginas consultando BD
+		$np = numPaginas($filtro);
+
+?>							
+							<a href="index.php?filtro=<?php echo $filtro; ?>&pagina=<?php if ($pagina > 1) echo ($pagina-1); else echo 1; ?>">Anterior</a>
+							<a href="index.php?filtro=<?php echo $filtro; ?>&pagina=<?php if ($pagina < $np) echo ($pagina+1); else echo $np; ?>">&nbsp;Siguiente</a>
+						</td>
+					</tr>
+					
+				</tfooter>
 			</table>
 
 			
