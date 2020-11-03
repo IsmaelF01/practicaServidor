@@ -18,14 +18,14 @@ $palabras = array(
 
 if (isset($_SESSION['juego'])) {
 
-    if (isset($_GET['letra'])) {
+    if (isset($_POST['letra'])) {
         //Ponemos la letras en mayusculas
-        $letra = strtoupper($_GET['letra']);
+        $letra = strtoupper($_POST['letra']);
 
         //Recoremos el array en busca de la palabra
         for ($i = 0; $i < strlen($_SESSION['juego']['palabra']); $i++) {
             if ($letra == $_SESSION['juego']['palabra'][$i]) {
-                $_SESSION['juego']['descubrir'][$i] = $letra;
+                $_SESSION['juego']['mostrar'][$i] = $letra;
             }
         }
 
@@ -45,11 +45,11 @@ if (isset($_SESSION['juego'])) {
 
         //Alert de Ganador y Perdedor 
         if ($_SESSION['juego']['fallos'] == 6) {
-            echo '<script type="text/javascript">alert("Game Over");</script>';
             session_destroy();
-        } else if ($_SESSION['juego']['palabra'] == $_SESSION['juego']['descubrir'] || $_SESSION['juego']['palabra'] == strtoupper($_GET['letra'])) {
-            echo '<script type="text/javascript">alert("You are Winner");</script>';
+            echo '<script type="text/javascript">alert("Game Over");</script>';            
+        } else if ($_SESSION['juego']['palabra'] == $_SESSION['juego']['mostrar'] || $_SESSION['juego']['palabra'] == strtoupper($_POST['letra'])) {
             session_destroy();
+            echo '<script type="text/javascript">alert("You are Winner");</script>';            
         }
     }
 
@@ -60,9 +60,9 @@ if (isset($_SESSION['juego'])) {
           </div>
           <div class='justify-content-center row p-4'>
             <a href='nuevo_juego.php?juego=nuevo' class='btn btn-warning ml-5 p-2'>New Play</a>
-            <h4 style='margin-left: 10px'>" . $_SESSION['juego']['descubrir'] . " </h4>
-            <form action='index.php' method='GET' class='row justify-content-center m-0'>
-                <input type='text' name='letra' class='form-control col-8'placeholder='Introduce la letra' autofocus>
+            <h4 style='margin-left: 10px'>" . $_SESSION['juego']['mostrar'] . " </h4>
+            <form action='index.php' method='POST' class='row justify-content-center m-0'>
+                <input type='text' name='letra' class='form-control col-8'placeholder='Introduzca la letra' autofocus>
                 <button type='submit' class='btn btn-warning' style='margin-left:10px'>Ok</button>
             </form>
           </div>";
@@ -74,11 +74,11 @@ if (isset($_SESSION['juego'])) {
     //rand --> para sacar un numero aleatorio
     //flip --> para intercambiar la clave por el valor
     $palabra = strtoupper(array_rand(array_flip($palabras)));
-    //creamos una cadena de guiones de longitud de palabra a descubrir
+    //creamos una cadena de guiones de longitud de palabra a mostrar
     //str_pad para rellenar un string con logitud determinada
-    $descubrir = str_pad("", strlen($palabra), "-");
+    $mostrar = str_pad("", strlen($palabra), "-");
     //Metemos todo en el array de sesion juego
-    $_SESSION['juego'] = array("palabra" => $palabra, "descubrir" => $descubrir, "elegidos" => "", "fallos" => 0);
+    $_SESSION['juego'] = array("palabra" => $palabra, "mostrar" => $mostrar, "elegidos" => "", "fallos" => 0);
     //Refrescamos el header
     header("refresh: 0");
 }
