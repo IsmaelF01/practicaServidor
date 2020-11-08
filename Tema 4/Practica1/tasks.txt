@@ -1,0 +1,8 @@
+1,sacar a los perros,2020-11-08,<img src='img/red.png' alt='' width='30' height='30'>
+2,mover,2020-11-08,<img src='img/yellow.png' alt=''width='30' height='30'>
+3,hacer deberes,2020-11-08,<img src='img/green.png' alt=''width='30' height='30'>
+4,mover,2020-11-09,<img src='img/red.png' alt='' width='30' height='30'>
+5,ver yt,2020-11-09,<img src='img/green.png' alt=''width='30' height='30'>
+6,coger movil,2020-11-10,<img src='img/yellow.png' alt=''width='30' height='30'>
+7,whatsapp,2020-11-10,<img src='img/red.png' alt='' width='30' height='30'>
+8,pipas,2020-11-09,<img src='img/red.png' alt='' width='30' height='30'>
