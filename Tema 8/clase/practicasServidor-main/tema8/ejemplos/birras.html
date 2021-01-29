@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>CERVEZAS</title>
+</head>
+<body>
+    
+    <section class='container'>
+        <h1>Cerveza</h1>
+        <form class="form-inline" id='birras'>
+            <div class="form-group">
+              <label>Cerveza</label>
+              <input type="text" class="form-control form-control-sm" id="name" placeholder="Cerveza">
+              <input type="hidden" name="styleId" value="1">
+            </div>
+            <button type="submit" class="btn btn-primary" id='enviar'>Enviar</button>
+          </form>
+
+          <div id='global'></div>
+
+    </section>
+
+
+
+<script>
+
+document.getElementById('birras').addEventListener("submit",  async function(e) {
+    e.preventDefault();
+    var cerveza=document.getElementById('name').value;
+    var url="https://cors-anywhere.herokuapp.com/https://sandbox-api.brewerydb.com/v2/beers?key=a1dc1446191ebea66072bac6e03a13f6&name="+cerveza;
+    
+ /*   
+    let res = await fetch(url, {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    });
+ */   
+    let formData = new FormData(e.target);
+		
+    let res = await fetch(url);
+    let data = await res.json();
+    console.log(data);
+
+    var global=document.getElementById('global');
+    var content="";
+    for (let step = 0; step < data.data.length; step++) {
+        content += data.data[step].nameDisplay + ", ";
+    }
+    global.innerHTML = content;
+    
+
+});   
+
+</script>
+
+</body>
+</html>
